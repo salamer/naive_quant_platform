@@ -1,9 +1,11 @@
 from flask import Flask, render_template, redirect, request
 from werkzeug import secure_filename
 import os
-import process
+import utils
 import threading
-from state_db import State
+from db import trainning_state
+import time
+
 app = Flask(__name__)
 
 UPLOAD_FOLDER = '/Users/aljun/quant/quant_platform/uploads'
@@ -26,22 +28,28 @@ def index():
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
-        file = request.files['file']
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        training = request.files['training]
+        predict_data = request.files['test']
+        if training and allowed_file(training.filename) and predict_data and allowed_file(predict_data.filename):
+            filename = secure_filename(training.filename)
+            training.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            predict_data_name = secure_filename(test.filename)
+            predict_data.save(os.path.join(app.config['UPLOAD_FOLDER'], predict_data_name))
             uesless_label = request.form['label'].split(',')
             target = request.form['target']
-            data = process.open_data(os.path.join(
+            if target not in useless_label:
+                useless_label.append(target)
+            train_data = utils.open_data(os.path.join(
                 app.config['UPLOAD_FOLDER'], filename))
-#            new_training = State(
-#                name=filename,
-#                path=os.path.join(app.config['UPLOAD_FOLDER'], filename),
-#                state="still training",
-#                clfPath=""
-#            )
-            training = threading.Thread(target=process.train, args=(
-                data, uesless_label, target, filename))
+            predict = utils.open_data(os.path.join(
+                app.config['UPLOAD_FOLDER'], predict_data_name))
+            task_name = request.form['task'] + strftime("%m/%d/%Y%H:%M")
+            new_training = trainning_state(
+                taskName=task_name,
+                state="still training",
+            )
+            training = threading.Thread(target=process.main, args=(
+                train_data, predict, target, uesless_label,task_name))
             training.start()
             return redirect("/")
     return ""
