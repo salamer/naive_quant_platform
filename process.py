@@ -29,6 +29,6 @@ def train(data, uesless_label, target, filename):
     path = "clf/" + filename + str(time.time()) + ".pkl"
     with open(path, 'wb') as fid:
         pickle.dump(clf, fid)
-    state = State.objects(filename=filename)[0]
-    state.state = "ok"
-    state.clfPath = path
+#    state = State.objects(name=filename)[0]
+#    state.state = "ok"
+#    state.clfPath = path
