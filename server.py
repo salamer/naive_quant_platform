@@ -57,7 +57,7 @@ def upload():
             train_data_col = train_data.columns.tolist()
             predict_data_col = predict_data.columns.tolist()
             for i in useless_label:
-                if ' ' not in i and len(i)>0:
+                if ' ' not in i and len(i) > 0:
                     try:
                         train_data_col.remove(i)
                         predict_data_col.remove(i)
@@ -71,7 +71,7 @@ def upload():
             )
             new_training.save()
             training = threading.Thread(target=process.main, args=(
-                train_data, predict_data, target, train_data_col, task_name,stock_id))
+                train_data, predict_data, target, train_data_col, task_name, stock_id))
             training.start()
             return redirect("/")
     return ""
@@ -85,4 +85,4 @@ def task_detail(task_name):
     return render_template("detail.html", details=res)
 
 if __name__ == "__main__":
-    app.run(debug=True,host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0")
