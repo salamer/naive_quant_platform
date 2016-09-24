@@ -1,6 +1,8 @@
 from mongoengine import *
+import datetime
 
 connect("quant")
+
 
 class training_result(Document):
     taskName = StringField(required=True)
@@ -8,7 +10,8 @@ class training_result(Document):
     result = ListField()
     error = StringField(default="null")
 
-class trainning_state(document):
+
+class trainning_state(Document):
     taskName = StringField(required=True)
-    data = DateTimeField(default=datetime.datetime.now)
+    date = DateTimeField(default=datetime.datetime.now)
     state = StringField(required=True)
