@@ -29,6 +29,20 @@
                 </ul>
             </div>
             {% endfor %}
+
+            <div class="col-md-4">
+              <hr />
+              <p>
+                the mixed part
+              </p>
+              <ul>
+                {% for i in mixed %}
+                <li>
+                  {{i}}
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
         </div>
     </div>
 </body>

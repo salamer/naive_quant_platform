@@ -80,9 +80,13 @@ def upload():
 @app.route("/task/<string:task_name>")
 def task_detail(task_name):
     res = []
+    mixed = []
     for item in training_result.objects(taskName=task_name):
         res.append(item)
-    return render_template("detail.html", details=res)
+    mixed = res[0].result
+    for i in range(1, len(res)):
+        mixed = utils.getMixed(mixed, res[i].result)
+    return render_template("detail.html", details=res, mixed=mixed)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")

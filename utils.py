@@ -12,3 +12,11 @@ def check_colums(col1, col2):
         if item not in col2:
             return False
     return True
+
+
+def getMixed(lis1, lis2):
+    res = []
+    for i in lis1:
+        if i in lis2:
+            res.append(i)
+    return res
