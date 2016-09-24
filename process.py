@@ -19,6 +19,9 @@ def main(trainning_data, predict_data, target, col_name, task_name,stock_id):
 
 def SVM(trainning_X, train_Y, predict_X, task_name,origin_data,stock_id):
     clf = svm.SVC(kernel="linear", C=0.025)
+    print trainning_X
+    print train_Y
+    print predict_X
     clf.fit(trainning_X, train_Y)
     res = clf.predict(predict_X)
     res_ = []

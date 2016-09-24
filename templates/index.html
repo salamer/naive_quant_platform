@@ -43,10 +43,12 @@
   </div>
 
   <div class="container">
+    <div class="row">
     {% for i in tasks %}
-      <div>
+      <div class="col-md-12">
+        <hr />
         <p>
-          taskName: {{i.taskName}}
+          taskName: <a href="/task/{{i.taskName}}">{{i.taskName}}</a>
         </p>
         <p>
           upload: {{i.date}}
@@ -56,6 +58,7 @@
         </p>
       </div>
     {% endfor %}
+    </div>
   </div>
 </body>
 </html>
