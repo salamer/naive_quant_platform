@@ -4,7 +4,7 @@ import cPickle as pickle
 from sklearn.externals import joblib
 import os
 import time
-from db import training_result
+from db import training_result,trainning_state
 
 
 def main(trainning_data, predict_data, target, col_name, task_name):
@@ -15,7 +15,9 @@ def main(trainning_data, predict_data, target, col_name, task_name):
     train_X = train_X.as_matrix()
     predict_X = predict_X.as_matrix()
     SVM(train_X, train_Y, predict_X, task_name)
-
+    task = trainning_state.objects(taskName=task_name)
+    task.state="OK"
+    task.save()
 
 def SVM(trainning_X, train_Y, predict_X, task_name):
     clf = svm.SVC(kernel="linear", C=0.025)

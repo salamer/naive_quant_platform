@@ -52,7 +52,7 @@ def upload():
             predict_data = utils.open_data(os.path.join(
                 app.config['UPLOAD_FOLDER'], predict_name))
             task_name = str(request.form['task'] +
-                            strftime("%m/%d/%Y%H:%M")).strip()
+                            strftime("%m%d%Y%H%M")).strip()
             train_data_col = train_data.columns
             predict_data_col = predict_data.columns
             for i in useless_label:
